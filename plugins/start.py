@@ -44,8 +44,8 @@ async def start(client, message):
 	**Document Or Video** and enter new filename to rename it__
 	""", reply_to_message_id=message.id,
                                  reply_markup=InlineKeyboardMarkup(
-                                     [[InlineKeyboardButton("Support 🇮🇳", url="https://t.me/lntechnical")],
-                                      [InlineKeyboardButton("Subscribe 🧐", url="https://youtube.com/c/LNtechnical")]]))
+                                     [[InlineKeyboardButton("Support 🇮🇳", url="https://t.me/LazyDeveloper")],
+                                      [InlineKeyboardButton("Subscribe 🧐", url="https://youtube.com/@LazyDeveloperrr")]]))
         return
     if id:
         if old == True:
@@ -57,8 +57,8 @@ async def start(client, message):
 	**Document Or Video** and enter new filename to rename it__
 	""", reply_to_message_id=message.id,
                                          reply_markup=InlineKeyboardMarkup(
-                                             [[InlineKeyboardButton("Support 🇮🇳", url="https://t.me/lntechnical")],
-                                              [InlineKeyboardButton("Subscribe 🧐", url="https://youtube.com/c/LNtechnical")]]))
+                                             [[InlineKeyboardButton("Support 🇮🇳", url="https://t.me/LazyDeveloper")],
+                                              [InlineKeyboardButton("Subscribe 🧐", url="https://youtube.com/@LazyDeveloperr")]]))
             except:
                 return
         else:
@@ -69,12 +69,12 @@ async def start(client, message):
             uploadlimit(int(id), new_limit)
             await message.reply_text(text=f"""
 	Hello {wish} {message.from_user.first_name }
-	__I am file renamer bot, Please sent any telegram 
+	__I am file renamer bot, Please send any telegram 
 	**Document Or Video** and enter new filename to rename it__
 	""", reply_to_message_id=message.id,
                                      reply_markup=InlineKeyboardMarkup(
-                                         [[InlineKeyboardButton("Support 🇮🇳", url="https://t.me/lntechnical")],
-                                          [InlineKeyboardButton("Subscribe 🧐", url="https://youtube.com/c/LNtechnical")]]))
+                                         [[InlineKeyboardButton("Support 🇮🇳", url="https://t.me/LazyDeveloper")],
+                                          [InlineKeyboardButton("Subscribe 🧐", url="https://youtube.com/@LazyDeveloperr")]]))
 
 
 @Client.on_message(filters.private & (filters.document | filters.audio | filters.video))
