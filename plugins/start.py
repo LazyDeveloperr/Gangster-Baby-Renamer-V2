@@ -136,7 +136,7 @@ async def send_doc(client, message):
             epcho = int(time.mktime(time.strptime(str(today), pattern)))
             daily_(message.from_user.id, epcho)
             used_limit(message.from_user.id, 0)
-        remain = limit - used
+        remain = limit + used
         if remain < int(file.file_size):
             await message.reply_text(f"Sorry! I can't upload files that are larger than {humanbytes(limit)}. File size detected {humanbytes(file.file_size)}\nUsed Daly Limit {humanbytes(used)} If U Want to Rename Large File Upgrade Your Plan ", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Upgrade 💰💳", callback_data="upgrade")]]))
             return

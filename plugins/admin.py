@@ -31,10 +31,10 @@ async def buypremium(bot, message):
 @Client.on_message(filters.private & filters.user(ADMIN) & filters.command(["ceasepower"]))
 async def buypremium(bot, message):
 	await message.reply_text("**-- POWER CEASE MODE --**",quote=True,reply_markup=InlineKeyboardMarkup([
-		           [InlineKeyboardButton("**•× Limit 500MB ×•**",callback_data = "cp1"),
-				    InlineKeyboardButton("**•× Limit 100MB ×•**",callback_data = "cp2")
+		           [InlineKeyboardButton("•× Limit 500MB ×•",callback_data = "cp1"),
+				    InlineKeyboardButton("•× Limit 100MB ×•",callback_data = "cp2")
 				   ],[
-				    InlineKeyboardButton("**🔥↭CEASE POWER↭🔥**",callback_data = "cp3")
+				    InlineKeyboardButton("🔥↭CEASE POWER↭🔥",callback_data = "cp3")
 				   ] ]))
         			
 @Client.on_callback_query(filters.regex('vip1'))
@@ -98,9 +98,9 @@ async def vip2(bot,update):
 async def vip3(bot,update):
 	id = update.message.reply_to_message.text.split("/ceasepower")
 	user_id = id[1].replace(" ", "")
-	inlimit = 1024
-	uploadlimit(int(user_id), 1024)
+	inlimit = 0
+	uploadlimit(int(user_id), 0)
 	usertype(int(user_id),"**POWER CEASED !**")
 	addpre(int(user_id))
 	await update.message.edit("All power ceased from the user.\nThis account has 0 mb renaming capacity ")
-	await bot.send_message(user_id,"**🚫 POWER CEASED 🚫**All power has been ceased from you \nFrom now you can't rename files using me\nCheck your plan here - /myplan\n- Contact Admin 🦋<a href='https://t.me/mRiderDM'>**LazyDeveloper**</a>🦋")
+	await bot.send_message(user_id,"🚫 All POWER CEASED 🚫\n\n- All power has been ceased from you \nFrom now you can't rename files using me\nCheck your plan here - /myplan\n- Contact Admin 🦋<a href='https://t.me/mRiderDM'>**LazyDeveloper**</a>🦋")
