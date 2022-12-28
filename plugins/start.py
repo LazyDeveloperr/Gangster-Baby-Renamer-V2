@@ -39,7 +39,7 @@ async def start(client, message):
         id = message.text.split(' ')[1]
     except:
         await message.reply_text(text=f"""
-	Hello {wish} {message.from_user.first_name }
+	Hello {wish} {message.from_user.first_name }\n\n
 	__I am file renamer bot, Please sent any telegram 
 	**Document Or Video** and enter new filename to rename it__
 	""", reply_to_message_id=message.id,
@@ -136,7 +136,7 @@ async def send_doc(client, message):
             epcho = int(time.mktime(time.strptime(str(today), pattern)))
             daily_(message.from_user.id, epcho)
             used_limit(message.from_user.id, 0)
-        remain = limit + used
+        remain = limit - used
         if remain < int(file.file_size):
             await message.reply_text(f"Sorry! I can't upload files that are larger than {humanbytes(limit)}. File size detected {humanbytes(file.file_size)}\nUsed Daly Limit {humanbytes(used)} If U Want to Rename Large File Upgrade Your Plan ", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Upgrade 💰💳", callback_data="upgrade")]]))
             return
