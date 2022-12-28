@@ -58,7 +58,7 @@ async def start(client, message):
 	""", reply_to_message_id=message.id,
                                          reply_markup=InlineKeyboardMarkup(
                                              [[InlineKeyboardButton("Update Channel", url="https://t.me/LazyDeveloper")],
-                                              [InlineKeyboardButton("Subscribe 🧐", url="https://youtube.com/@LazyDeveloperr")]]))
+                                              [InlineKeyboardButton("Subscribe", url="https://youtube.com/@LazyDeveloperr")]]))
             except:
                 return
         else:
@@ -74,7 +74,7 @@ async def start(client, message):
 	""", reply_to_message_id=message.id,
                                      reply_markup=InlineKeyboardMarkup(
                                          [[InlineKeyboardButton("Update Channel", url="https://t.me/LazyDeveloper")],
-                                          [InlineKeyboardButton("Subscribe 🧐", url="https://youtube.com/@LazyDeveloperr")]]))
+                                          [InlineKeyboardButton("Subscribe", url="https://youtube.com/@LazyDeveloperr")]]))
 
 
 @Client.on_message(filters.private & (filters.document | filters.audio | filters.video))
@@ -143,6 +143,33 @@ async def send_doc(client, message):
             return
         if value < file.file_size:
             if STRING:
+                if buy_date == None:
+                    await message.reply_text(f" You Can't Upload More Then {humanbytes(limit)} Used Daly Limit {humanbytes(used)} ", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Upgrade 💰💳", callback_data="upgrade")]]))
+                    return
+                pre_check = check_expi(buy_date)
+                if pre_check == True:
+                    await message.reply_text(f"""__What do you want me to do with this file?__\n**File Name** :- {filename}\n**File Size** :- {humanize.naturalsize(file.file_size)}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📝 Rename", callback_data="rename"), InlineKeyboardButton("✖️ Cancel", callback_data="cancel")]]))
+                    total_rename(int(botid), prrename)
+                    total_size(int(botid), prsize, file.file_size)
+                else:
+                    uploadlimit(message.from_user.id, 1200000000)
+                    usertype(message.from_user.id, "Free")
+
+                    await message.reply_text(f'Your Plane Expired On {buy_date}', quote=True)
+                    return
+            else:
+                await message.reply_text("Can't upload files bigger than 2GB ")
+                return
+        else:
+            if buy_date:
+                pre_check = check_expi(buy_date)
+                if pre_check == False:
+                    uploadlimit(message.from_user.id, 1200000000)
+                    usertype(message.from_user.id, "Free")
+
+# LazyDeveloper
+        if value > file.file_size:
+            if STRING == None:
                 if buy_date == None:
                     await message.reply_text(f" You Can't Upload More Then {humanbytes(limit)} Used Daly Limit {humanbytes(used)} ", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Upgrade 💰💳", callback_data="upgrade")]]))
                     return
