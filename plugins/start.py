@@ -23,11 +23,11 @@ botid = token.split(':')[0]
 currentTime = datetime.datetime.now()
 
 if currentTime.hour < 12:
-    wish = "Good morning."
+    wish = "❤️ Good morning sweetheart ❤️"
 elif 12 <= currentTime.hour < 12:
-    wish = 'Good afternoon.'
+    wish = '🤍 Good afternoon my Love 🤍'
 else:
-    wish = 'Good evening.'
+    wish = '🦋 Good evening baby 🦋'
 
 # -------------------------------
 
@@ -38,27 +38,28 @@ async def start(client, message):
     try:
         id = message.text.split(' ')[1]
     except:
-        await message.reply_text(text=f"""
+        await message.reply_photo(photo="https://telegra.ph/file/f2c253c5b0b747042cf4c.png",
+            text=f"""
 	Hello {wish} {message.from_user.first_name }
 	__I am file renamer bot, Please sent any telegram 
 	**Document Or Video** and enter new filename to rename it__
 	""", reply_to_message_id=message.id,
                                  reply_markup=InlineKeyboardMarkup(
-                                     [[InlineKeyboardButton("Update Channel", url="https://t.me/LazyDeveloper")],
-                                      [InlineKeyboardButton("Subscribe 🧐", url="https://youtube.com/@LazyDeveloperrr")]]))
+                                     [[InlineKeyboardButton("🔺 Update Channel 🔺", url="https://t.me/LazyDeveloper")],
+                                      [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperrr")]]))
         return
     if id:
         if old == True:
             try:
-                await client.send_message(id, "Your Frind Alredy Using Our Bot")
-                await message.reply_text(text=f"""
-	Hello {wish} {message.from_user.first_name }
-	__I am file renamer bot, Please sent any telegram 
-	**Document Or Video** and enter new filename to rename it__
+                await client.send_message(id, "Your Friend is Alredy Using Our Bot")
+                await message.reply_photo(photo="https://telegra.ph/file/f2c253c5b0b747042cf4c.png",
+                text=f"""
+	Hello {wish} {message.from_user.first_name } \n\n
+	I am file renamer bot, Please sent any telegram**Document Or Video** and enter new filename to rename it
 	""", reply_to_message_id=message.id,
                                          reply_markup=InlineKeyboardMarkup(
-                                             [[InlineKeyboardButton("Update Channel", url="https://t.me/LazyDeveloper")],
-                                              [InlineKeyboardButton("Subscribe", url="https://youtube.com/@LazyDeveloperr")]]))
+                                             [[InlineKeyboardButton("🔺 Update Channel 🔺", url="https://t.me/LazyDeveloper")],
+                                              [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperr")]]))
             except:
                 return
         else:
@@ -73,8 +74,8 @@ async def start(client, message):
 	**Document Or Video** and enter new filename to rename it__
 	""", reply_to_message_id=message.id,
                                      reply_markup=InlineKeyboardMarkup(
-                                         [[InlineKeyboardButton("Update Channel", url="https://t.me/LazyDeveloper")],
-                                          [InlineKeyboardButton("Subscribe", url="https://youtube.com/@LazyDeveloperr")]]))
+                                         [[InlineKeyboardButton("🔺 Update Channel 🔺", url="https://t.me/LazyDeveloper")],
+                                          [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperr")]]))
 
 
 @Client.on_message(filters.private & (filters.document | filters.audio | filters.video))
@@ -88,7 +89,7 @@ async def send_doc(client, message):
             await message.reply_text("**__You are not subscribed my channel__** ",
                                      reply_to_message_id=message.id,
                                      reply_markup=InlineKeyboardMarkup(
-                                         [[InlineKeyboardButton("Update Channel", url=f"https://t.me/{update_channel}")]]))
+                                         [[InlineKeyboardButton("🔺 Update Channel 🔺", url=f"https://t.me/{update_channel}")]]))
             return
     try:
         bot_data = find_one(int(botid))
