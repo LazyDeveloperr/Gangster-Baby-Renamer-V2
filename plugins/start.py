@@ -38,8 +38,7 @@ async def start(client, message):
     try:
         id = message.text.split(' ')[1]
     except:
-        await message.reply_photo(photo="https://telegra.ph/file/f2c253c5b0b747042cf4c.png",
-            text=f"""
+        await message.reply_text(text=f"""
 	Hello {wish} {message.from_user.first_name }
 	__I am file renamer bot, Please sent any telegram 
 	**Document Or Video** and enter new filename to rename it__
@@ -52,8 +51,7 @@ async def start(client, message):
         if old == True:
             try:
                 await client.send_message(id, "Your Friend is Alredy Using Our Bot")
-                await message.reply_photo(photo="https://telegra.ph/file/f2c253c5b0b747042cf4c.png",
-                text=f"""
+                await message.reply_text(text=f"""
 	Hello {wish} {message.from_user.first_name } \n\n
 	I am file renamer bot, Please sent any telegram**Document Or Video** and enter new filename to rename it
 	""", reply_to_message_id=message.id,
