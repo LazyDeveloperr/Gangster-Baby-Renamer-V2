@@ -5,26 +5,26 @@ from pyrogram import Client , filters
 @Client.on_callback_query(filters.regex('upgrade'))
 async def upgrade(bot,update):
 	text = """**Free Plan User**
-	Daily  Upload limit 2GB
+	Daily  Upload limit 1.2GB
 	Price 0
 	
-	**VIP 1 ** 
+	**🪙 Silver Tier 🪙** 
 	Daily  Upload  limit 10GB
-	Price Rs 55  🇮🇳/🌎 0.67$  per Month
+	Price Rs 66  ind /🌎 0.8$  per Month
 	
-	**VIP 2 **
+	**💫 Gold Tier 💫**
 	Daily Upload limit 50GB
-	Price Rs 80  🇮🇳/🌎 0.97$  per Month
+	Price Rs 100  ind /🌎 1.2$  per Month
 	
-	**VIP3**
+	**💎 Diamond 💎**
 	Daily Upload limit 100GB
-	Price Rs 150  🇮🇳/🌎 1.81$  per Month
+	Price Rs 206  ind /🌎 2.5$  per Month
 	
 	
-	Pay Using Upi I'd ```9480251952@paytm```
+	Pay Using Upi I'd ```7808912076@paytm```
 	
 	After Payment Send Screenshots Of 
-        Payment To Admin"""
+        Payment To Admin @mRiderDM"""
 	keybord = InlineKeyboardMarkup([[ 
         			InlineKeyboardButton("ADMIN 🛂",url = "https://t.me/mRiderDM")], 
         			[InlineKeyboardButton("Paytm",url = "https://p.paytm.me/xCTH/vo37hii9"),
@@ -35,26 +35,26 @@ async def upgrade(bot,update):
 @Client.on_message(filters.private & filters.command(["upgrade"]))
 async def upgradecm(bot,message):
 	text = """**Free Plan User**
-	Daily  Upload limit 2GB
+	Daily  Upload limit 1.2GB
 	Price 0
 	
-	**VIP 1 ** 
+	**🪙 Silver Tier 🪙** 
 	Daily  Upload  limit 10GB
-	Price Rs 55  🇮🇳/🌎 0.67$  per Month
+	Price Rs 66  ind /🌎 0.8$  per Month
 	
-	**VIP 2 **
+	**💫 Gold Tier 💫**
 	Daily Upload limit 50GB
-	Price Rs 80  🇮🇳/🌎 0.97$  per Month
+	Price Rs 100  ind /🌎 1.2$  per Month
 	
-	**VIP3**
+	**💎 Diamond 💎**
 	Daily Upload limit 100GB
-	Price Rs 150  🇮🇳/🌎 1.81$  per Month
+	Price Rs 206  ind /🌎 2.5$  per Month
 	
 	
-	Pay Using Upi I'd ```9480251952@paytm```
+	Pay Using Upi I'd ```7808912076@paytm```
 	
 	After Payment Send Screenshots Of 
-        Payment To Admin"""
+        Payment To Admin @mRiderDM"""
 	keybord = InlineKeyboardMarkup([[ 
         			InlineKeyboardButton("ADMIN 🛂",url = "https://t.me/mRiDerDM")], 
         			[InlineKeyboardButton("Paytm",url = "https://p.paytm.me/xCTH/vo37hii9"),
