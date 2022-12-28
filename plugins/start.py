@@ -169,7 +169,7 @@ async def send_doc(client, message):
 
 # LazyDeveloper
         if value > file.file_size:
-            if STRING == None:
+            if STRING:
                 if buy_date == None:
                     await message.reply_text(f" You Can't Upload More Then {humanbytes(limit)} Used Daly Limit {humanbytes(used)} ", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Upgrade 💰💳", callback_data="upgrade")]]))
                     return
