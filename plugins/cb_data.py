@@ -67,7 +67,7 @@ async def doc(bot, update):
         path = await bot.download_media(message=file, progress=progress_for_pyrogram, progress_args=("``` Trying To Download...```",  ms, c_time))
 
     except Exception as e:
-        neg_used = used - int(file.file_size)
+        neg_used = used + int(file.file_size)
         used_limit(update.from_user.id, neg_used)
         await ms.edit(e)
         return
@@ -159,7 +159,7 @@ async def vid(bot, update):
         path = await bot.download_media(message=file, progress=progress_for_pyrogram, progress_args=("``` Trying To Download...```",  ms, c_time))
 
     except Exception as e:
-        neg_used = used - int(file.file_size)
+        neg_used = used + int(file.file_size)
         used_limit(update.from_user.id, neg_used)
         await ms.edit(e)
         return
@@ -218,7 +218,7 @@ async def vid(bot, update):
             except:
                 pass
         except Exception as e:
-            neg_used = used - int(file.file_size)
+            neg_used = used + int(file.file_size)
             used_limit(update.from_user.id, neg_used)
             await ms.edit(e)
             os.remove(file_path)
