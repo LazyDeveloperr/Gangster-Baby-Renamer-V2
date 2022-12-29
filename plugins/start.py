@@ -1,176 +1,106 @@
-from datetime import date as date_
-import datetime
 import os
-from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
-import time
 from pyrogram import Client, filters
-from pyrogram.types import (
-    InlineKeyboardButton, InlineKeyboardMarkup, ForceReply)
-import humanize
-from helper.progress import humanbytes
-
-from helper.database import insert, find_one, used_limit, usertype, uploadlimit, addpredata, total_rename, total_size
-from pyrogram.file_id import FileId
-from helper.database import daily as daily_
-from helper.date import add_date, check_expi
-CHANNEL = os.environ.get('CHANNEL', "")
-STRING = os.environ.get("STRING", "")
-log_channel = int(os.environ.get("LOG_CHANNEL", ""))
-token = os.environ.get('TOKEN', '')
-botid = token.split(':')[0]
-
-# Part of Day --------------------
-currentTime = datetime.datetime.now()
-
-if currentTime.hour < 12:
-    wish = "❤️ Good morning sweetheart ❤️"
-elif 12 <= currentTime.hour < 12:
-    wish = '🤍 Good afternoon my Love 🤍'
-else:
-    wish = '🦋 Good evening baby 🦋'
-
-# -------------------------------
+from helper.date import add_date
+from helper.database import uploadlimit , usertype,addpre
+ADMIN = int(os.environ.get("ADMIN", 1484670284))
+from pyrogram.types import (InlineKeyboardButton, InlineKeyboardMarkup,ForceReply)
 
 
-@Client.on_message(filters.private & filters.command(["start"]))
-async def start(client, message):
-    old = insert(int(message.chat.id))
-    try:
-        id = message.text.split(' ')[1]
-    except:
-        await message.reply_text(text=f"""
-	Hello {wish} {message.from_user.first_name }\n\n
-	__I am file renamer bot, Please sent any telegram 
-	**Document Or Video** and enter new filename to rename it__
-	""", reply_to_message_id=message.id,
-                                 reply_markup=InlineKeyboardMarkup(
-                                     [[InlineKeyboardButton("🔺 Update Channel 🔺", url="https://t.me/LazyDeveloper")],
-                                      [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperrr")]]))
-        return
-    if id:
-        if old == True:
+@Client.on_message(filters.private & filters.user(ADMIN) & filters.command(["warn"]))
+async def warn(c, m):
+        if len(m.command) >= 3:
             try:
-                await client.send_message(id, "Your Friend is Alredy Using Our Bot")
-                await message.reply_text(text=f"""
-	Hello {wish} {message.from_user.first_name } \n\n
-	I am file renamer bot, Please sent any telegram**Document Or Video** and enter new filename to rename it
-	""", reply_to_message_id=message.id,
-                                         reply_markup=InlineKeyboardMarkup(
-                                             [[InlineKeyboardButton("🔺 Update Channel 🔺", url="https://t.me/LazyDeveloper")],
-                                              [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperr")]]))
+                user_id = m.text.split(' ', 2)[1]
+                reason = m.text.split(' ', 2)[2]
+                await m.reply_text("User Notfied Sucessfully")
+                await c.send_message(chat_id=int(user_id), text=reason)
             except:
-                return
-        else:
-            await client.send_message(id, "Congrats! You Won 100MB Upload limit")
-            _user_ = find_one(int(id))
-            limit = _user_["uploadlimit"]
-            new_limit = limit + 104857600
-            uploadlimit(int(id), new_limit)
-            await message.reply_text(text=f"""
-	Hello {wish} {message.from_user.first_name }
-	__I am file renamer bot, Please send any telegram 
-	**Document Or Video** and enter new filename to rename it__
-	""", reply_to_message_id=message.id,
-                                     reply_markup=InlineKeyboardMarkup(
-                                         [[InlineKeyboardButton("🔺 Update Channel 🔺", url="https://t.me/LazyDeveloper")],
-                                          [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperr")]]))
+                 await m.reply_text("User Not Notfied Sucessfully 😔") 
 
+@Client.on_message(filters.private & filters.user(ADMIN) & filters.command(["addpremium"]))
+async def buypremium(bot, message):
+	await message.reply_text("🦋 Select Plan to upgrade...",quote=True,reply_markup=InlineKeyboardMarkup([
+		           [
+				   InlineKeyboardButton("🪙 Silver",callback_data = "vip1")
+				   ],[
+					InlineKeyboardButton("💫Gold",callback_data = "vip2")
+				   ],[
+					InlineKeyboardButton("💎 Diamond",callback_data = "vip3")
+					]]))
 
-@Client.on_message(filters.private & (filters.document | filters.audio | filters.video))
-async def send_doc(client, message):
-    update_channel = CHANNEL
-    user_id = message.from_user.id
-    if update_channel:
-        try:
-            await client.get_chat_member(update_channel, user_id)
-        except UserNotParticipant:
-            await message.reply_text("**__You are not subscribed my channel__** ",
-                                     reply_to_message_id=message.id,
-                                     reply_markup=InlineKeyboardMarkup(
-                                         [[InlineKeyboardButton("🔺 Update Channel 🔺", url=f"https://t.me/{update_channel}")]]))
-            return
-    try:
-        bot_data = find_one(int(botid))
-        prrename = bot_data['total_rename']
-        prsize = bot_data['total_size']
-        user_deta = find_one(user_id)
-    except:
-        await message.reply_text("Use About cmd first /about")
-    try:
-        used_date = user_deta["date"]
-        buy_date = user_deta["prexdate"]
-        daily = user_deta["daily"]
-        user_type = user_deta["usertype"]
-    except:
-        await message.reply_text("database has been Cleared click on /start")
-        return
+@Client.on_message(filters.private & filters.user(ADMIN) & filters.command(["ceasepower"]))
+async def ceasepremium(bot, message):
+	await message.reply_text(" POWER CEASE MODE",quote=True,reply_markup=InlineKeyboardMarkup([
+		           [InlineKeyboardButton("•× Limit 500MB ×•",callback_data = "cp1"),
+				    InlineKeyboardButton("•× Limit 100MB ×•",callback_data = "cp2")
+				   ],[
+				    InlineKeyboardButton("•••× CEASE ALL POWER ×•••",callback_data = "cp3")
+				   ] ]))
+        			
+@Client.on_callback_query(filters.regex('vip1'))
+async def vip1(bot,update):
+	id = update.message.reply_to_message.text.split("/addpremium")
+	user_id = id[1].replace(" ", "")
+	inlimit  = 10737418240
+	uploadlimit(int(user_id),10737418240)
+	usertype(int(user_id),"🪙 **SILVER**")
+	addpre(int(user_id))
+	await update.message.edit("Added successfully To Premium Upload limit 10 GB")
+	await bot.send_message(user_id,"Hey you are Upgraded To silver. check your plan here /myplan")
 
-    c_time = time.time()
+@Client.on_callback_query(filters.regex('vip2'))
+async def vip2(bot,update):
+	id = update.message.reply_to_message.text.split("/addpremium")
+	user_id = id[1].replace(" ", "")
+	inlimit = 53687091200
+	uploadlimit(int(user_id), 53687091200)
+	usertype(int(user_id),"💫 **GOLD**")
+	addpre(int(user_id))
+	await update.message.edit("Added successfully To Premium Upload limit 50 GB")
+	await bot.send_message(user_id,"Hey you are Upgraded To Gold. check your plan here /myplan")
 
-    if user_type == "Free":
-        LIMIT = 600
-    else:
-        LIMIT = 50
-    then = used_date + LIMIT
-    left = round(then - c_time)
-    conversion = datetime.timedelta(seconds=left)
-    ltime = str(conversion)
-    if left > 0:
-        await message.reply_text(f"```Sorry Dude I am not only for YOU \n Flood control is active so please wait for {ltime}```", reply_to_message_id=message.id)
-    else:
-        # Forward a single message
+@Client.on_callback_query(filters.regex('vip3'))
+async def vip3(bot,update):
+	id = update.message.reply_to_message.text.split("/addpremium")
+	user_id = id[1].replace(" ", "")
+	inlimit = 107374182400
+	uploadlimit(int(user_id), 107374182400)
+	usertype(int(user_id),"💎 **DIAMOND**")
+	addpre(int(user_id))
+	await update.message.edit("Added successfully To Premium Upload limit 100 GB")
+	await bot.send_message(user_id,"Hey you are Upgraded To Diamond. check your plan here /myplan")
 
-        media = await client.get_messages(message.chat.id, message.id)
-        file = media.document or media.video or media.audio
-        dcid = FileId.decode(file.file_id).dc_id
-        filename = file.file_name
-        value = 2147483648
-        used_ = find_one(message.from_user.id)
-        used = used_["used_limit"]
-        limit = used_["uploadlimit"]
-        expi = daily - \
-            int(time.mktime(time.strptime(str(date_.today()), '%Y-%m-%d')))
-        if expi != 0:
-            today = date_.today()
-            pattern = '%Y-%m-%d'
-            epcho = int(time.mktime(time.strptime(str(today), pattern)))
-            daily_(message.from_user.id, epcho)
-            used_limit(message.from_user.id, 0)
-        remain = limit - used
-        if remain < int(file.file_size):
-            await message.reply_text(f"Sorry! I can't upload files that are larger than {humanbytes(limit)}. File size detected {humanbytes(file.file_size)}\nUsed Daly Limit {humanbytes(used)} If U Want to Rename Large File Upgrade Your Plan ", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Upgrade 💰💳", callback_data="upgrade")]]))
-            return
-        if value < file.file_size:
-            
-            if STRING:
-                if buy_date == None:
-                    await message.reply_text(f" You Can't Upload More Then {humanbytes(limit)} Used Daly Limit {humanbytes(used)} ", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Upgrade 💰💳", callback_data="upgrade")]]))
-                    return
-                pre_check = check_expi(buy_date)
-                if pre_check == True:
-                    await message.reply_text(f"""__What do you want me to do with this file?__\n**File Name** :- {filename}\n**File Size** :- {humanize.naturalsize(file.file_size)}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("📝 Rename", callback_data="rename"), InlineKeyboardButton("✖️ Cancel", callback_data="cancel")]]))
-                    total_rename(int(botid), prrename)
-                    total_size(int(botid), prsize, file.file_size)
-                else:
-                    uploadlimit(message.from_user.id, 1288490188)
-                    usertype(message.from_user.id, "Free")
+# CEASE POWER MODE @LAZYDEVELOPER
 
-                    await message.reply_text(f'Your Plane Expired On {buy_date}', quote=True)
-                    return
-            else:
-                await message.reply_text("Can't upload files bigger than 2GB ")
-                return
-        else:
-            if buy_date:
-                pre_check = check_expi(buy_date)
-                if pre_check == False:
-                    uploadlimit(message.from_user.id, 1288490188)
-                    usertype(message.from_user.id, "Free")
+@Client.on_callback_query(filters.regex('cp1'))
+async def cp1(bot,update):
+	id = update.message.reply_to_message.text.split("/ceasepower")
+	user_id = id[1].replace(" ", "")
+	inlimit  = 524288000
+	uploadlimit(int(user_id),524288000)
+	usertype(int(user_id),"**ACCOUNT DOWNGRADED**")
+	addpre(int(user_id))
+	await update.message.edit("ACCOUNT DOWNGRADED\nThe user can only use 100MB/day from Data qota")
+	await bot.send_message(user_id,"⚠️ Warning ⚠️\n\n- ACCOUNT DOWNGRADED\nYou can only use 500MB/day from Data qota.\nCheck your plan here - /myplan\n- Contact Admin 🦋<a href='https://t.me/mRiderDM'>**LazyDeveloper**</a>🦋")
 
-            filesize = humanize.naturalsize(file.file_size)
-            fileid = file.file_id
-            total_rename(int(botid), prrename)
-            total_size(int(botid), prsize, file.file_size)
-            await message.reply_text(f"""__What do you want me to do with this file?__\n**File Name** :- {filename}\n**File Size** :- {filesize}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton("📝 Rename", callback_data="rename"),
-                  InlineKeyboardButton("✖️ Cancel", callback_data="cancel")]]))
+@Client.on_callback_query(filters.regex('cp2'))
+async def cp2(bot,update):
+	id = update.message.reply_to_message.text.split("/ceasepower")
+	user_id = id[1].replace(" ", "")
+	inlimit = 104857600
+	uploadlimit(int(user_id), 104857600)
+	usertype(int(user_id),"**ACCOUNT DOWNGRADED Lv-2**")
+	addpre(int(user_id))
+	await update.message.edit("ACCOUNT DOWNGRADED to Level 2\nThe user can only use 100MB/day from Data qota")
+	await bot.send_message(user_id,"⛔️ Last Warning ⛔️\n\n- ACCOUNT DOWNGRADED to Level 2\nYou can only use 100MB/day from Data qota.\nCheck your plan here - /myplan\n- Contact Admin 🦋<a href='https://t.me/mRiderDM'>**LazyDeveloper**</a>🦋")
+
+@Client.on_callback_query(filters.regex('cp3'))
+async def cp3(bot,update):
+	id = update.message.reply_to_message.text.split("/ceasepower")
+	user_id = id[1].replace(" ", "")
+	inlimit = 0
+	uploadlimit(int(user_id), 0)
+	usertype(int(user_id),"**POWER CEASED !**")
+	addpre(int(user_id))
+	await update.message.edit("All power ceased from the user.\nThis account has 0 mb renaming capacity ")
+	await bot.send_message(user_id,"🚫 All POWER CEASED 🚫\n\n- All power has been ceased from you \nFrom now you can't rename files using me\nCheck your plan here - /myplan\n- Contact Admin 🦋<a href='https://t.me/mRiderDM'>**LazyDeveloper**</a>🦋")
