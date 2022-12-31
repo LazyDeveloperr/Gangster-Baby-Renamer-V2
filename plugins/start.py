@@ -79,12 +79,6 @@ async def start(client, message):
 async def send_doc(client, message):
     update_channel = CHANNEL
     user_id = message.from_user.id
-    if not await update_channel.is_user_exist(message.from_user.id):
-        await update_channel.add_user(message.from_user.id)
-        await client.send_message(
-            log_channel,
-            f"🦋 #GangsterBaby_LOGS 🦋,\n\n**ID** : {user_id}\nName: {message.from_user.first_name}"
-        )
     if update_channel:
         try:
             await client.get_chat_member(update_channel, user_id)
@@ -93,6 +87,8 @@ async def send_doc(client, message):
                                      reply_to_message_id=message.id,
                                      reply_markup=InlineKeyboardMarkup(
                                          [[InlineKeyboardButton("🔺 Update Channel 🔺", url=f"https://t.me/{update_channel}")]]))
+            await client.send_message(log_channel,f"🦋 #GangsterBaby_LOGS 🦋,\n\n**ID** : {user_id}\nName: {message.from_user.first_name}"
+        )
             return
     try:
         bot_data = find_one(int(botid))
