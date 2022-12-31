@@ -18,6 +18,7 @@ STRING = os.environ.get("STRING", "")
 log_channel = int(os.environ.get("LOG_CHANNEL", ""))
 token = os.environ.get('TOKEN', '')
 botid = token.split(':')[0]
+START_PIC = os.environ.get('START_PIC','https://telegra.ph/file/f2c253c5b0b747042cf4c.png')
 
 # Part of Day --------------------
 currentTime = datetime.datetime.now()
@@ -43,7 +44,7 @@ async def start(client, message):
 	I am file renamer bot, Please sent any telegram 
 	**Document Or Video** and enter new filename to rename it.
 	""", reply_to_message_id=message.id,
-                                 reply_markup=InlineKeyboardMarkup(
+                                 buttons=InlineKeyboardMarkup(
                                      [[InlineKeyboardButton("🔺 Update Channel 🔺", url="https://t.me/LazyDeveloper")],
                                       [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperrr")]]))
         return
@@ -55,7 +56,7 @@ async def start(client, message):
 	Hello {wish} {message.from_user.first_name } \n\n
 	I am file renamer bot, Please sent any telegram**Document Or Video** and enter new filename to rename it
 	""", reply_to_message_id=message.id,
-                                         reply_markup=InlineKeyboardMarkup(
+                                         buttons=InlineKeyboardMarkup(
                                              [[InlineKeyboardButton("🔺 Update Channel 🔺", url="https://t.me/LazyDeveloper")],
                                               [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperr")]]))
             except:
@@ -74,6 +75,20 @@ async def start(client, message):
                                      reply_markup=InlineKeyboardMarkup(
                                          [[InlineKeyboardButton("🔺 Update Channel 🔺", url="https://t.me/LazyDeveloper")],
                                           [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperr")]]))
+    if START_PIC:
+        buttons = InlineKeyboardMarkup(
+                                         [[InlineKeyboardButton("🔺 Update Channel 🔺", url="https://t.me/LazyDeveloper")],
+                                          [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperr")]])
+        text=f"""
+	Hello {wish} {message.from_user.first_name }\n\n
+	I am file renamer bot, Please sent any telegram 
+	**Document Or Video** and enter new filename to rename it.
+	"""
+        await message.reply_photo(START_PIC, caption=text, reply_markup=buttons)       
+    else:
+        await message.reply_text(text=text, reply_markup=buttons, disable_web_page_preview=True)
+    
+                                      
 
 
 @Client.on_message(filters.private & (filters.document | filters.audio | filters.video))
@@ -89,6 +104,21 @@ async def send_doc(client, message):
                                      reply_markup=InlineKeyboardMarkup(
                                          [[InlineKeyboardButton("🔺 Update Channel 🔺", url=f"https://t.me/{update_channel}")]]))
             return
+    try:
+        bot_data = find_one(int(botid))
+        prrename = bot_data['total_rename']
+        prsize = bot_data['total_size']
+        user_deta = find_one(user_id)
+    except:
+        await message.reply_text("Use About cmd first /about")
+    try:
+        used_date = user_deta["date"]
+        buy_date = user_deta["prexdate"]
+        daily = user_deta["daily"]
+        user_type = user_deta["usertype"]
+    except:
+        await message.reply_text("database has been Cleared click on /start")
+        return
 
 
     c_time = time.time()
