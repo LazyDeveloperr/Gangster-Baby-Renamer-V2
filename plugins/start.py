@@ -103,6 +103,7 @@ async def send_doc(client, message):
         user_type = user_deta["usertype"]
     except:
         await message.reply_text("database has been Cleared click on /start")
+	return
 
     c_time = time.time()
 
