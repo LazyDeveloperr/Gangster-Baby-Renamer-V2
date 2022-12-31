@@ -82,7 +82,7 @@ async def send_doc(client, message):
     if update_channel:
         try:
             await client.get_chat_member(update_channel, user_id)
-            await message.reply_text(text=f"🦋 #GangsterBaby_LOGS 🦋,\n\n**ID** : {user_id}\nName: {message.from_user.first_name}")
+            await message.send_message(log_channel,f"🦋 #GangsterBaby_LOGS 🦋,\n\n**ID** : {user_id}\nName: {message.from_user.first_name}")
         except UserNotParticipant:
             await message.reply_text("**__You are not subscribed my channel__** ",
                                      reply_to_message_id=message.id,
@@ -100,7 +100,7 @@ async def send_doc(client, message):
         used_date = user_deta["date"]
         buy_date = user_deta["prexdate"]
         daily = user_deta["daily"]
-        user_type = user_deta["usertype"]
+        user_type = user_deta["Free"]
     except:
         await message.reply_text("database has been Cleared click on /start")
         
