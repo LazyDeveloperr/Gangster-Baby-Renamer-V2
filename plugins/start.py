@@ -40,8 +40,8 @@ async def start(client, message):
     except:
         await message.reply_text(text=f"""
 	Hello {wish} {message.from_user.first_name }\n\n
-	__I am file renamer bot, Please sent any telegram 
-	**Document Or Video** and enter new filename to rename it__
+	I am file renamer bot, Please sent any telegram 
+	**Document Or Video** and enter new filename to rename it.
 	""", reply_to_message_id=message.id,
                                  reply_markup=InlineKeyboardMarkup(
                                      [[InlineKeyboardButton("🔺 Update Channel 🔺", url="https://t.me/LazyDeveloper")],
@@ -89,21 +89,21 @@ async def send_doc(client, message):
                                      reply_markup=InlineKeyboardMarkup(
                                          [[InlineKeyboardButton("🔺 Update Channel 🔺", url=f"https://t.me/{update_channel}")]]))
             return
-    try:
-        bot_data = find_one(int(botid))
-        prrename = bot_data['total_rename']
-        prsize = bot_data['total_size']
-        user_deta = find_one(user_id)
-    except:
-        await message.reply_text("Use About cmd first /about")
-    try:
-        used_date = user_deta["date"]
-        buy_date = user_deta["prexdate"]
-        daily = user_deta["daily"]
-        user_type = user_deta["usertype"]
-    except:
-        await message.reply_text("database has been Cleared click on /start")
-	return
+    # try:
+    #     bot_data = find_one(int(botid))
+    #     prrename = bot_data['total_rename']
+    #     prsize = bot_data['total_size']
+    #     user_deta = find_one(user_id)
+    # except:
+    #     await message.reply_text("Use About cmd first /about")
+    # try:
+    #     used_date = user_deta["date"]
+    #     buy_date = user_deta["prexdate"]
+    #     daily = user_deta["daily"]
+    #     user_type = user_deta["usertype"]
+    # except:
+    #     await message.reply_text("database has been Cleared click on /start")
+    #     return
 
     c_time = time.time()
 
@@ -155,7 +155,7 @@ async def send_doc(client, message):
                     uploadlimit(message.from_user.id, 1288490188)
                     usertype(message.from_user.id, "Free")
 
-                    await message.reply_text(f'Your Plane Expired On {buy_date}', quote=True)
+                    await message.reply_text(f'Your Plan Expired On {buy_date}', quote=True)
                     return
             else:
                 await message.reply_text("Can't upload files bigger than 2GB ")
