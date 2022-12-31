@@ -82,18 +82,13 @@ async def rename_start(client, message):
     if update_channel:
         try:
             await client.get_chat_member(update_channel, user_id)
+            await message.send_message(log_channel,f"🦋 #GangsterBaby_LOGS 🦋,\n\n**ID** : {user_id}\nName: {message.from_user.first_name}")
+
         except UserNotParticipant:
             await message.reply_text("**__You are not subscribed my channel__** ",
                                      reply_to_message_id=message.id,
                                      reply_markup=InlineKeyboardMarkup(
                                          [[InlineKeyboardButton("🔺 Update Channel 🔺", url=f"https://t.me/{update_channel}")]]))
-            return
-    if update_channel:
-        try:
-            await client.get_chat_member(update_channel, user_id)
-        except UserParticipant:
-            await message.send_message(log_channel,f"🦋 #GangsterBaby_LOGS 🦋,\n\n**ID** : {user_id}\nName: {message.from_user.first_name}")
-            
             return
     try:
         bot_data = find_one(int(botid))
