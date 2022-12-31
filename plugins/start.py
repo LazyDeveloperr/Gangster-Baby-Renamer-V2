@@ -51,7 +51,7 @@ async def start(client, message):
     if id:
         if old == True:
             try:
-                await client.send_message(id, "Your Friend is Alredy Using Our Bot")
+                await client.send_message(id, "Your Friend is Already Using Our Bot")
                 await message.reply_photo(photo='https://telegra.ph/file/f2c253c5b0b747042cf4c.png',
                                          caption=txt,
                                          reply_markup=InlineKeyboardMarkup(
@@ -79,10 +79,15 @@ async def start(client, message):
 async def send_doc(client, message):
     update_channel = CHANNEL
     user_id = message.from_user.id
+    if not await update_channel.is_user_exist(message.from_user.id):
+        await update_channel.add_user(message.from_user.id)
+        await client.send_message(
+            log_channel,
+            f"🦋 #GangsterBaby_LOGS 🦋,\n\n**ID** : {user_id}\nName: {message.from_user.first_name}"
+        )
     if update_channel:
         try:
             await client.get_chat_member(update_channel, user_id)
-            await client.send_message(log_channel,f"🦋 #GangsterBaby_LOGS 🦋,\n\n**ID** : {user_id}\nName: {message.from_user.first_name}")
         except UserNotParticipant:
             await message.reply_text("**__You are not subscribed my channel__** ",
                                      reply_to_message_id=message.id,
@@ -103,8 +108,7 @@ async def send_doc(client, message):
         user_type = user_deta["usertype"]
     except:
         await message.reply_text("database has been Cleared click on /start")
-        
-        pass
+        return
 
     c_time = time.time()
 
@@ -120,7 +124,6 @@ async def send_doc(client, message):
         await message.reply_text(f"```Sorry Dude I am not only for YOU \n Flood control is active so please wait for {ltime}```", reply_to_message_id=message.id)
     else:
         # Forward a single message
-
         media = await client.get_messages(message.chat.id, message.id)
         file = media.document or media.video or media.audio
         dcid = FileId.decode(file.file_id).dc_id
