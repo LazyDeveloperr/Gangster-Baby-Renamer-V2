@@ -1,7 +1,7 @@
 from datetime import date as date_
 import datetime
 import os
-from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
+from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant, UserParticipant
 import time
 from pyrogram import Client, filters
 from pyrogram.types import (
@@ -15,6 +15,7 @@ from helper.database import daily as daily_
 from helper.date import add_date, check_expi
 CHANNEL = os.environ.get('CHANNEL', "")
 STRING = os.environ.get("STRING", "")
+ADMIN = os.environ.get("ADMIN", "")
 log_channel = int(os.environ.get("LOG_CHANNEL", ""))
 token = os.environ.get('TOKEN', '')
 botid = token.split(':')[0]
@@ -74,7 +75,7 @@ async def start(client, message):
                                           [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperr")]]))
 
 
-@Client.on_message(filters.private & (filters.document | filters.audio | filters.video))
+@Client.on_message(filters.private & filters.user(ADMIN) & (filters.document | filters.audio | filters.video))
 async def rename_start(client, message):
     update_channel = CHANNEL
     user_id = message.from_user.id
@@ -86,6 +87,13 @@ async def rename_start(client, message):
                                      reply_to_message_id=message.id,
                                      reply_markup=InlineKeyboardMarkup(
                                          [[InlineKeyboardButton("🔺 Update Channel 🔺", url=f"https://t.me/{update_channel}")]]))
+            return
+    if update_channel:
+        try:
+            await client.get_chat_member(update_channel, user_id)
+        except UserParticipant:
+            await message.send_message(log_channel,f"🦋 #GangsterBaby_LOGS 🦋,\n\n**ID** : {user_id}\nName: {message.from_user.first_name}")
+            
             return
     try:
         bot_data = find_one(int(botid))
@@ -137,13 +145,13 @@ async def rename_start(client, message):
             used_limit(message.from_user.id, 0)
         remain = limit - used
         if remain < int(file.file_size):
-            await message.reply_text(f"Sorry! I can't upload files that are larger than {humanbytes(limit)}. File size detected {humanbytes(file.file_size)}\nUsed Daly Limit {humanbytes(used)} If U Want to Rename Large File Upgrade Your Plan ", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Upgrade 💰💳", callback_data="upgrade")]]))
+            await message.reply_text(f"It seems 100% of daily {humanbytes(limit)} data quota exhausted.\n\n  File size detected {humanbytes(file.file_size)}\n  Used Daily Limit {humanbytes(used)}\n\nYou have only **{humanbytes(remain)}** left on your Account.\nIf U Want to Rename Large File Upgrade Your Plan ", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Upgrade 💰💳", callback_data="upgrade")]]))
             return
         if value < file.file_size:
             
             if STRING:
                 if buy_date == None:
-                    await message.reply_text(f" You Can't Upload More Then {humanbytes(limit)} Used Daly Limit {humanbytes(used)} ", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Upgrade 💰💳", callback_data="upgrade")]]))
+                    await message.reply_text(f" You Can't Upload More Then {humanbytes(limit)} Used Daily Limit {humanbytes(used)} ", reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("Upgrade 💰💳", callback_data="upgrade")]]))
                     return
                 pre_check = check_expi(buy_date)
                 if pre_check == True:
