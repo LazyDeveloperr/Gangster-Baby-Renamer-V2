@@ -51,10 +51,8 @@ async def start(client, message):
         if old == True:
             try:
                 await client.send_message(id, "Your Friend is Alredy Using Our Bot")
-                await message.reply_text(text=f"""
-	Hello {wish} {message.from_user.first_name } \n\n
-	I am file renamer bot, Please sent any telegram**Document Or Video** and enter new filename to rename it
-	""",
+                await message.reply_photo(photo='https://telegra.ph/file/f2c253c5b0b747042cf4c.png',
+                                         caption=txt,
                                          reply_markup=InlineKeyboardMarkup(
                                              [[InlineKeyboardButton("🔺 Update Channel 🔺", url="https://t.me/LazyDeveloper")],
                                               [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperr")]]))
@@ -77,7 +75,7 @@ async def start(client, message):
 
 
 @Client.on_message(filters.private & (filters.document | filters.audio | filters.video))
-async def send_doc(client, message):
+async def rename_start(client, message):
     update_channel = CHANNEL
     user_id = message.from_user.id
     if update_channel:
