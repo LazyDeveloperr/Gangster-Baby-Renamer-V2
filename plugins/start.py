@@ -84,9 +84,16 @@ async def start(client, message):
 	I am file renamer bot, Please sent any telegram 
 	**Document Or Video** and enter new filename to rename it.
 	"""
-        await message.reply_photo(START_PIC, caption=text, reply_markup=buttons)       
+        await message.reply_photo(START_PIC, caption=text, reply_markup=buttons, reply_to_message_id=message.id)       
     else:
-        await message.reply_text(text=text, reply_markup=buttons, disable_web_page_preview=True)
+        message.reply_text(text=f"""
+	Hello {wish} {message.from_user.first_name }\n\n
+	__I am file renamer bot, Please send any telegram 
+	**Document Or Video** and enter new filename to rename it__
+	""", reply_to_message_id=message.id,
+                                     reply_markup=InlineKeyboardMarkup(
+                                         [[InlineKeyboardButton("🔺 Update Channel 🔺", url="https://t.me/LazyDeveloper")],
+                                          [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperr")]]))
     
                                       
 
