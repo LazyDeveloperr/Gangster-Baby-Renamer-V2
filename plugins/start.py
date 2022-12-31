@@ -75,15 +75,14 @@ async def start(client, message):
                                           [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperr")]]))
 
 
-@Client.on_message(filters.private & filters.user(ADMIN) & (filters.document | filters.audio | filters.video))
-async def rename_start(client, message):
+@Client.on_message(filters.private & (filters.document | filters.audio | filters.video))
+async def send_doc(client, message):
     update_channel = CHANNEL
     user_id = message.from_user.id
     if update_channel:
         try:
             await client.get_chat_member(update_channel, user_id)
-            await message.send_message(log_channel,f"🦋 #GangsterBaby_LOGS 🦋,\n\n**ID** : {user_id}\nName: {message.from_user.first_name}")
-
+            await message.reply_text(text=f"🦋 #GangsterBaby_LOGS 🦋,\n\n**ID** : {user_id}\nName: {message.from_user.first_name}")
         except UserNotParticipant:
             await message.reply_text("**__You are not subscribed my channel__** ",
                                      reply_to_message_id=message.id,
