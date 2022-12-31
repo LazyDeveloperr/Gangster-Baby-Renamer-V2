@@ -1,7 +1,7 @@
 from datetime import date as date_
 import datetime
 import os
-from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant, UserParticipant
+from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 import time
 from pyrogram import Client, filters
 from pyrogram.types import (
