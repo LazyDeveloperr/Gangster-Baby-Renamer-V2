@@ -32,16 +32,14 @@ async def broadcast(bot, message):
 
 
 @Client.on_message(filters.private & filters.user(ADMIN) & filters.command(["alluser"]))
-async def broadcast(bot, message):
-    if (message.reply_to_message):
-        ms = await message.reply_text("Geting All ids from database..\n Please wait")
+async def alluser(bot, message):
+    if (alluser):
         ids = getid()
         tot = len(ids)
-        success = 0
-        failed = 0
-        await ms.edit(f"Sending Message To {id} Users")
+        await message.reply_text(text=f"Sending Message To {id} Users")
         for id in ids:
             try:
-                await ms.edit(f"Id:{id} \nTotal - {tot}")
+                await message.reply_text(text=f"Id:{id} \nTotal - {tot}")
             except FloodWait as e:
                 await asyncio.sleep(t.x)
+            return

@@ -97,8 +97,9 @@ async def send_doc(client, message):
             return
     if restrict :
         try :
-            await client.send_message("hello please give `/ceasepower id` command to continue")
+            await message.reply_text(text=f"hello please give `/ceasepower id` command to continue")
         except:
+            await message.reply_text(text=f"something went wrong")
             return
 
     try:
@@ -108,6 +109,7 @@ async def send_doc(client, message):
         user_deta = find_one(user_id)
     except:
         await message.reply_text("Use About cmd first /about")
+        return
     try:
         used_date = user_deta["date"]
         buy_date = user_deta["prexdate"]
