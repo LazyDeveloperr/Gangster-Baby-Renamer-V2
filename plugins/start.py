@@ -15,7 +15,7 @@ from helper.database import daily as daily_
 from helper.date import add_date, check_expi
 CHANNEL = os.environ.get('CHANNEL', "")
 STRING = os.environ.get("STRING", "")
-ADMIN = os.environ.get("ADMIN", "")
+ADMIN = int(os.environ.get("ADMIN", 1484670284))
 bot_username = os.environ.get("BOT_USERNAME","GangsterBaby_renamer_BOT")
 log_channel = int(os.environ.get("LOG_CHANNEL", ""))
 token = os.environ.get('TOKEN', '')
@@ -35,7 +35,7 @@ else:
 # -------------------------------
 
 
-@Client.on_message(filters.private & filters.command(["start"]))
+@Client.on_message(filters.private & filters.user(ADMIN) & filters.command(["start"]))
 async def start(client, message):
     old = insert(int(message.chat.id))
     try:
@@ -77,11 +77,14 @@ async def start(client, message):
     
 
 
-@Client.on_message(filters.private & (filters.document | filters.audio | filters.video))
+@Client.on_message(filters.private & filters.user(ADMIN) &(filters.document | filters.audio | filters.video))
 async def send_doc(client, message):
     update_channel = CHANNEL
     user_id = message.from_user.id
     restrict = f"ceasepower{user_id}"
+    if restrict:
+        await message.reply_text(text=f"hii dear love")
+        return
     if update_channel:
         try:
             await client.get_chat_member(update_channel, user_id)
@@ -93,15 +96,9 @@ async def send_doc(client, message):
                                      reply_markup=InlineKeyboardMarkup(
                                          [[InlineKeyboardButton("🔺 Update Channel 🔺", url=f"https://t.me/{update_channel}")]]))
             await client.send_message(log_channel,f"🦋 #GangsterBaby_LOGS 🦋,\n\n**ID** : `{user_id}`\n**Name**: {message.from_user.first_name} {message.from_user.last_name}\n**User-Plan** : {user}\n\n ",
-                                                                                                       reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔺 Restrict User ( **pm** ) 🔺", url=f"https://t.me/{bot_username}?start={restrict}")]]))
+                                                                                                       reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔺 Restrict User ( **pm** ) 🔺", url=f"https://t.me/{bot_username}")]]))
             return
-    if restrict :
-        try :
-            await message.reply_text(text=f"hello please give `/ceasepower id` command to continue")
-        except:
-            await message.reply_text(text=f"something went wrong")
-            return
-
+    
     try:
         bot_data = find_one(int(botid))
         prrename = bot_data['total_rename']
@@ -109,7 +106,6 @@ async def send_doc(client, message):
         user_deta = find_one(user_id)
     except:
         await message.reply_text("Use About cmd first /about")
-        return
     try:
         used_date = user_deta["date"]
         buy_date = user_deta["prexdate"]
