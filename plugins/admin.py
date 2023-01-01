@@ -3,6 +3,8 @@ from pyrogram import Client, filters
 from helper.date import add_date
 from helper.database import uploadlimit , usertype,addpre
 ADMIN = int(os.environ.get("ADMIN", 1484670284))
+log_channel = int(os.environ.get("LOG_CHANNEL", ""))
+
 from pyrogram.types import (InlineKeyboardButton, InlineKeyboardMarkup,ForceReply)
 
 
@@ -35,10 +37,10 @@ async def ceasepremium(bot, message):
 				    InlineKeyboardButton("•× Limit 100MB ×•",callback_data = "cp2")
 				   ],[
 				    InlineKeyboardButton("•••× CEASE ALL POWER ×•••",callback_data = "cp3")
-				   ] ]))
+				    ]]))
         			
 @Client.on_callback_query(filters.regex('vip1'))
-async def vip1(bot,update):
+async def vip1(bot,update,message):
 	id = update.message.reply_to_message.text.split("/addpremium")
 	user_id = id[1].replace(" ", "")
 	inlimit  = 10737418240
@@ -47,6 +49,7 @@ async def vip1(bot,update):
 	addpre(int(user_id))
 	await update.message.edit("Added successfully To Premium Upload limit 10 GB")
 	await bot.send_message(user_id,"Hey you are Upgraded To silver. check your plan here /myplan")
+	await bot.send_message(log_channel,f"⚡️ Plan Upgraded successfully 💥\n\n Name : {message.from_user.first_name}Hey you are Upgraded To silver. check your plan here /myplan")
 
 @Client.on_callback_query(filters.regex('vip2'))
 async def vip2(bot,update):
