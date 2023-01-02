@@ -35,7 +35,7 @@ else:
 # -------------------------------
 
 
-@Client.on_message((filters.private & filters.command(["start"])) | (filters.user(ADMIN) & filters.command(["start"])))
+@Client.on_message(filters.private & filters.command(["start"]))
 async def start(client, message):
     old = insert(int(message.chat.id))
     try:
@@ -47,7 +47,7 @@ async def start(client, message):
                                 caption=txt,
                                 reply_markup=InlineKeyboardMarkup(
                                       [[InlineKeyboardButton("🔺 Update Channel 🔺", url="https://t.me/LazyDeveloper")],
-                                      [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperr")]]))
+                                      [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperrr")]]))
         return
     if id:
         if old == True:
@@ -77,11 +77,14 @@ async def start(client, message):
     
 
 
-@Client.on_message((filters.private & (filters.document | filters.audio | filters.video)) | (filters.user(ADMIN) & (filters.document | filters.audio | filters.video)))
+@Client.on_message(filters.private &(filters.document | filters.audio | filters.video))
 async def send_doc(client, message):
     update_channel = CHANNEL
     user_id = message.from_user.id
     restrict = f"ceasepower{user_id}"
+    if restrict:
+        await message.reply_text(text=f"hii dear love")
+        return
     if update_channel:
         try:
             await client.get_chat_member(update_channel, user_id)
@@ -109,7 +112,9 @@ async def send_doc(client, message):
         daily = user_deta["daily"]
         user_type = user_deta["usertype"]
     except:
-        await message.reply_text("database has been Cleared click on /start")
+        await message.reply_text(f"""__What do you want me to do with this file?__\n**File Name** :- {filename}\n**File Size** :- {filesize}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton("📝 Rename", callback_data="rename"),
+                  InlineKeyboardButton("✖️ Cancel", callback_data="cancel")]]))
         return
 
     c_time = time.time()

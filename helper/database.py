@@ -107,12 +107,11 @@ def find(chat_id):
 
 
 def getid():
-    values = []
+    values = [" ","\n"]
     for key in dbcol.find():
         id = key["_id"]
         values.append((id))
     return values
-
 
 def delete(id):
     dbcol.delete_one(id)
