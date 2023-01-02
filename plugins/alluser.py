@@ -1,24 +1,11 @@
 import os 
 from pyrogram import Client, filters
-from pyrogram.types import ( InlineKeyboardButton, InlineKeyboardMarkup,ForceReply)
+from pyrogram.types import ( InlineKeyboardButton, InlineKeyboardMarkup)
 token = os.environ.get('TOKEN','')
 botid = token.split(':')[0]
-from helper.database import botdata, find_one, total_user
-from helper.progress import humanbytes
-import pymongo
-from helper.date import add_date
-DB_NAME = os.environ.get("DB_NAME", "")
-DB_URL = os.environ.get("DB_URL", "")
-mongo = pymongo.MongoClient(DB_URL)
-db = mongo[DB_NAME]
-dbcol = db["user"]
+from helper.database import botdata, find_one, total_user,getid
 
-def getid():
-    values = [].split("\\R", -1)
-    for key in dbcol.find():
-        id = key["_id"]
-        values.append((id))
-    return values
+from helper.progress import humanbytes
 
 @Client.on_message(filters.private & filters.command(["alluser"]))
 async def start(client,message):
