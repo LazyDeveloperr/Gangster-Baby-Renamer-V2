@@ -1,8 +1,6 @@
-aiofiles
 Pillow
 humanize
 hachoir
-motor
 pyrogram==2.0.57
 TgCrypto
 pymongo==4.0.2
