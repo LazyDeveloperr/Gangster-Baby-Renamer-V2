@@ -113,6 +113,11 @@ async def send_doc(client, message):
         dcid = FileId.decode(file.file_id).dc_id
         filename = file.file_name
         filesize = humanize.naturalsize(file.file_size)
+        used_ = find_one(message.from_user.id)
+        used = used_["used_limit"]
+        limit = used_["uploadlimit"]
+        total_rename(int(botid), prrename)
+        total_size(int(botid), prsize, file.file_size)
         await message.reply_text(f"""__What do you want me to do with this file?__\n**File Name** :- {filename}\n**File Size** :- {filesize}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("📝 Rename", callback_data="rename"),
                   InlineKeyboardButton("✖️ Cancel", callback_data="cancel")]]))
