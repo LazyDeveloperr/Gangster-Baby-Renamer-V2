@@ -108,6 +108,8 @@ async def send_doc(client, message):
         daily = user_deta["daily"]
         user_type = user_deta["usertype"]
     except:
+        media = await client.get_messages(message.chat.id, message.id)
+        file = media.document or media.video or media.audio
         dcid = FileId.decode(file.file_id).dc_id
         filename = file.file_name
         filesize = humanize.naturalsize(file.file_size)
