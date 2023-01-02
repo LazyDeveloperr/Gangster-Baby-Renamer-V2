@@ -116,6 +116,8 @@ async def send_doc(client, message):
         used_ = find_one(message.from_user.id)
         used = used_["used_limit"]
         limit = used_["uploadlimit"]
+        daily_(message.from_user.id, epcho)
+        used_limit(message.from_user.id, 0)
         total_rename(int(botid), prrename)
         total_size(int(botid), prsize, file.file_size)
         await message.reply_text(f"""__What do you want me to do with this file?__\n**File Name** :- {filename}\n**File Size** :- {filesize}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup(
