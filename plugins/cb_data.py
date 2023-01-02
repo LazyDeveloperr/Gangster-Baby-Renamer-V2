@@ -1,5 +1,4 @@
-from helper.progress import progress_for_pyrogram
-from helper.utils import convert
+from helper.progress import progress_for_pyrogram, TimeFormatter
 
 from pyrogram import Client, filters
 from pyrogram.types import (
@@ -328,7 +327,7 @@ async def aud(bot, update):
 
 
 @Client.on_callback_query(filters.regex('renamex'))
-async def rename(bot, update):
+async def renamex(bot, update):
     user_id = update.message.chat.id
     date = update.message.date
     await update.message.delete()
@@ -337,7 +336,7 @@ async def rename(bot, update):
                                     reply_markup=ForceReply(True))
 
 @Client.on_callback_query(filters.regex("upload"))
-async def doc(bot, update):
+async def upload(bot, update):
     type = update.data.split("_")[1]
     new_name = update.message.text
     new_filename = new_name.split(":-")[1]
@@ -369,7 +368,7 @@ async def doc(bot, update):
     if c_caption:
         try:
             caption = c_caption.format(filename=new_filename, filesize=humanize.naturalsize(
-                media.file_size), duration=convert(duration))
+                media.file_size), duration=TimeFormatter(duration))
         except Exception as e:
             await ms.edit(text=f"Your caption Error unexpected keyword ●> ({e})")
             return
@@ -380,7 +379,7 @@ async def doc(bot, update):
             ph_path = await bot.download_media(c_thumb)
         else:
             ph_path = await bot.download_media(media.thumbs[0].file_id)
-        Image.open(ph_path).convert("RGB").save(ph_path)
+        Image.open(ph_path).TimeFormatter("RGB").save(ph_path)
         img = Image.open(ph_path)
         img.resize((320, 320))
         img.save(ph_path, "JPEG")

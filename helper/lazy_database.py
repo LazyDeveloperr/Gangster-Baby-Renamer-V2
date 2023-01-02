@@ -1,21 +1,9 @@
 import os
-import motor.motor_asyncio
 DB_NAME = os.environ.get("DB_NAME", "")
 DB_URL = os.environ.get("DB_URL", "")
 
 class Database:
 
-    def __init__(self, uri, database_name):
-        self._client = motor.motor_asyncio.AsyncIOMotorClient(uri)
-        self.db = self._client[database_name]
-        self.col = self.db.user
-
-    def new_user(self, id):
-        return dict(
-            _id=int(id),                                   
-            file_id=None,
-            caption=None
-        )
 
     async def add_user(self, id):
         user = self.new_user(id)
