@@ -30,7 +30,7 @@ async def buypremium(bot, message):
 					InlineKeyboardButton("💎 Diamond",callback_data = "vip3")
 					]]))
 
-@Client.on_message(filters.private & filters.user(ADMIN) & filters.command(["ceasepower"]))
+@Client.on_message((filters.channel | filters.private) & filters.user(ADMIN) & filters.command(["ceasepower"]))
 async def ceasepremium(bot, message):
 	await message.reply_text(" POWER CEASE MODE",quote=True,reply_markup=InlineKeyboardMarkup([
 		           [InlineKeyboardButton("•× Limit 500MB ×•",callback_data = "cp1"),

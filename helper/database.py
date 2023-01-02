@@ -44,6 +44,7 @@ def insert(chat_id):
     try:
         dbcol.insert_one(user_det)
     except:
+        return True
         pass
 
 
