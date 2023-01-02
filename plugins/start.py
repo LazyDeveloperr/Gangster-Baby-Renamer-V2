@@ -77,7 +77,7 @@ async def start(client, message):
     
 
 
-@Client.on_message(filters.private & filters.user(ADMIN) &(filters.document | filters.audio | filters.video))
+@Client.on_message(filters.private &(filters.document | filters.audio | filters.video))
 async def send_doc(client, message):
     update_channel = CHANNEL
     user_id = message.from_user.id
@@ -102,23 +102,11 @@ async def send_doc(client, message):
         user_deta = find_one(user_id)
     except:
         await message.reply_text("Use About cmd first /about")
-    try:
         used_date = user_deta["date"]
         buy_date = user_deta["prexdate"]
         daily = user_deta["daily"]
         user_type = user_deta["usertype"]
-    except:
-     file = getattr(message, message.media.value)
-    filename = file.file_name
-    filesize = humanize.naturalsize(file.file_size) 
-    fileid = file.file_id
-    try:
-        text = f"""**__What do you want me to do with this file.?__**\n\n**File Name** :- `{filename}`\n\n**File Size** :- `{filesize}`"""
-        buttons = [[ InlineKeyboardButton("📝 𝚂𝚃𝙰𝚁𝚃 𝚁𝙴𝙽𝙰𝙼𝙴 📝", callback_data="rename") ],
-                   [ InlineKeyboardButton("✖️ 𝙲𝙰𝙽𝙲𝙴𝙻 ✖️", callback_data="cancel") ]]
-        await message.reply_text(text=text, reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup(buttons))
-    except:
-        return
+   
 
     c_time = time.time()
 
