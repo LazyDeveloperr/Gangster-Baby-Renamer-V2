@@ -107,7 +107,7 @@ def find(chat_id):
 
 
 def getid():
-    values = [" ","\n"]
+    values = []
     for key in dbcol.find():
         id = key["_id"]
         values.append((id))

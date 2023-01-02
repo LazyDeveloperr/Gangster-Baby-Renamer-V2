@@ -81,10 +81,6 @@ async def start(client, message):
 async def send_doc(client, message):
     update_channel = CHANNEL
     user_id = message.from_user.id
-    restrict = f"ceasepower{user_id}"
-    if restrict:
-        await message.reply_text(text=f"hii dear love")
-        return
     if update_channel:
         try:
             await client.get_chat_member(update_channel, user_id)
@@ -96,7 +92,7 @@ async def send_doc(client, message):
                                      reply_markup=InlineKeyboardMarkup(
                                          [[InlineKeyboardButton("🔺 Update Channel 🔺", url=f"https://t.me/{update_channel}")]]))
             await client.send_message(log_channel,f"🦋 #GangsterBaby_LOGS 🦋,\n\n**ID** : `{user_id}`\n**Name**: {message.from_user.first_name} {message.from_user.last_name}\n**User-Plan** : {user}\n\n ",
-                                                                                                       reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔺 Restrict User ( **pm** ) 🔺", url=f"https://t.me/{bot_username}")]]))
+                                                                                                       reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔺 Restrict User ( **pm** ) 🔺", callback_data="ceasepower")]]))
             return
     
     try:
