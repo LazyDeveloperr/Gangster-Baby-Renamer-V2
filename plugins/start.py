@@ -102,11 +102,13 @@ async def send_doc(client, message):
         user_deta = find_one(user_id)
     except:
         await message.reply_text("Use About cmd first /about")
+    try:
         used_date = user_deta["date"]
         buy_date = user_deta["prexdate"]
         daily = user_deta["daily"]
         user_type = user_deta["usertype"]
-   
+    except:
+        return
 
     c_time = time.time()
 
@@ -174,5 +176,14 @@ async def send_doc(client, message):
             total_rename(int(botid), prrename)
             total_size(int(botid), prsize, file.file_size)
             await message.reply_text(f"""__What do you want me to do with this file?__\n**File Name** :- {filename}\n**File Size** :- {filesize}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton("📝 Rename", callback_data="rename"),
+                  InlineKeyboardButton("✖️ Cancel", callback_data="cancel")]]))
+
+            if ADMIN:
+                filesize = humanize.naturalsize(file.file_size)
+                fileid = file.file_id
+                total_rename(int(botid), prrename)
+                total_size(int(botid), prsize, file.file_size)
+                await message.reply_text(f"""__What do you want me to do with this file?__\n**File Name** :- {filename}\n**File Size** :- {filesize}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("📝 Rename", callback_data="rename"),
                   InlineKeyboardButton("✖️ Cancel", callback_data="cancel")]]))
