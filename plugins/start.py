@@ -94,7 +94,7 @@ async def send_doc(client, message):
             await client.send_message(log_channel,f"🦋 #GangsterBaby_LOGS 🦋,\n\n**ID** : `{user_id}`\n**Name**: {message.from_user.first_name} {message.from_user.last_name}\n**User-Plan** : {user}\n\n ",
                                                                                                        reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("🔺 Restrict User ( **pm** ) 🔺", callback_data="ceasepower")]]))
             return
-    
+
     try:
         bot_data = find_one(int(botid))
         prrename = bot_data['total_rename']
@@ -108,22 +108,20 @@ async def send_doc(client, message):
         daily = user_deta["daily"]
         user_type = user_deta["usertype"]
     except:
-        media = await client.get_messages(message.chat.id, message.id)
-        file = media.document or media.video or media.audio
-        dcid = FileId.decode(file.file_id).dc_id
-        filename = file.file_name
-        filesize = humanize.naturalsize(file.file_size)
-        used_ = find_one(message.from_user.id)
-        used = used_["used_limit"]
-        limit = used_["uploadlimit"]
-        daily_(message.from_user.id, epcho)
-        used_limit(message.from_user.id, 0)
-        total_rename(int(botid), prrename)
-        total_size(int(botid), prsize, file.file_size)
-        await message.reply_text(f"""__What do you want me to do with this file?__\n**File Name** :- {filename}\n**File Size** :- {filesize}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup(
+     if buy_date:
+            pre_check = check_expi(buy_date)
+            if pre_check == False:
+                    uploadlimit(message.from_user.id, 1288490188)
+                    usertype(message.from_user.id, "Free")
+
+            filesize = humanize.naturalsize(file.file_size)
+            fileid = file.file_id
+            total_rename(int(botid), prrename)
+            total_size(int(botid), prsize, file.file_size)
+            await message.reply_text(f"""__What do you want me to do with this file?__\n**File Name** :- {filename}\n**File Size** :- {filesize}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("📝 Rename", callback_data="rename"),
                   InlineKeyboardButton("✖️ Cancel", callback_data="cancel")]]))
-        return
+     return
 
     c_time = time.time()
 
