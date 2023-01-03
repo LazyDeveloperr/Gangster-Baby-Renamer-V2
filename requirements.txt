@@ -1,4 +1,3 @@
-aiofiles
 Pillow
 humanize
 hachoir
