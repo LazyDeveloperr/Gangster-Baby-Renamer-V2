@@ -38,6 +38,11 @@ async def ceasepremium(bot, message):
 				   ],[
 				    InlineKeyboardButton("•••× CEASE ALL POWER ×•••",callback_data = "cp3")
 				    ]]))
+
+@Client.on_message((filters.channel | filters.private) & filters.user(ADMIN) & filters.command(["resetpower"]))
+async def ceasepremium(bot, message):
+	await message.reply_text(" POWER CEASE MODE",quote=True,reply_markup=InlineKeyboardMarkup([
+		           [InlineKeyboardButton("Set as Default",callback_data = "dft")]]))
         			
 @Client.on_callback_query(filters.regex('vip1'))
 async def vip1(bot,update,message):
@@ -107,3 +112,14 @@ async def cp3(bot,update):
 	addpre(int(user_id))
 	await update.message.edit("All power ceased from the user.\nThis account has 0 mb renaming capacity ")
 	await bot.send_message(user_id,"🚫 All POWER CEASED 🚫\n\n- All power has been ceased from you \nFrom now you can't rename files using me\nCheck your plan here - /myplan\n- Contact Admin 🦋<a href='https://t.me/mRiderDM'>**LazyDeveloper**</a>🦋")
+
+@Client.on_callback_query(filters.regex('dft'))
+async def dft(bot,update):
+	id = update.message.reply_to_message.text.split("/resetpower")
+	user_id = id[1].replace(" ", "")
+	inlimit = 1288490188
+	uploadlimit(int(user_id), 1288490188)
+	usertype(int(user_id),"**Free**")
+	addpre(int(user_id))
+	await update.message.edit("Daily Data limit has been reset successsfully.\nThis account has default 1.2 GB renaming capacity ")
+	await bot.send_message(user_id,"Your Daily Data limit has been reset successsfully.\n\nCheck your plan here - /myplan\n- Contact Admin 🦋<a href='https://t.me/mRiderDM'>**LazyDeveloper**</a>🦋")
