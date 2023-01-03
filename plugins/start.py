@@ -14,6 +14,9 @@ from pyrogram.file_id import FileId
 from helper.database import daily as daily_
 from helper.date import add_date, check_expi
 import os
+from asyncio import sleep
+from pyrogram.errors import FloodWait
+
 CHANNEL = os.environ.get('CHANNEL', "")
 STRING = os.environ.get("STRING", "")
 ADMIN = int(os.environ.get("ADMIN", 1484670284))
@@ -110,15 +113,14 @@ async def send_doc(client, message):
         daily = user_deta["daily"]
         user_type = user_deta["usertype"]
     except:
-        file = getattr(message, message.media.value)
-        filename = file.file_name
-        filesize = humanize.naturalsize(file.file_size) 
-        fileid = file.file_id
-
-        text = f"""**__What do you want me to do with this file.?__**\n\n**File Name** :- `{filename}`\n\n**File Size** :- `{filesize}`"""
-        buttons = [[ InlineKeyboardButton("📝 𝚂𝚃𝙰𝚁𝚃 𝚁𝙴𝙽𝙰𝙼𝙴 📝", callback_data="renamex") ],
-                   [ InlineKeyboardButton("✖️ 𝙲𝙰𝙽𝙲𝙴𝙻 ✖️", callback_data="cancel") ]]
-        await message.reply_text(text=text, reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup(buttons))
+        await message.reply_text(text=f"Hello dear **Admin** {message.from_user.first_name} - **we are currently working on this issue**\n\nPlease try to rename file from your another account.\nBecause this BOT can't rename file sent by admin.\n\nDon't worry ! here we have a solution for you dear {message.from_user.first_name }.\nPlease use `/addpremium your_other_userid` to use premium feautres\n\n",
+                                  reply_markup=InlineKeyboardMarkup([
+                                                                     [InlineKeyboardButton("🦋 Contact LazyDeveloper 🦋",url="https://telegram.me/mRiDerDM")],
+                                                                     [InlineKeyboardButton("🔺 Watch Tutorial 🔺", url="https://youtube.com/@LazyDeveloperr")],
+                                                                     [InlineKeyboardButton("🦋 Visit Channel  ", url="https://t.me/LazyDeveloper"),
+                                                                     InlineKeyboardButton("  Support Group 🦋", url="https://t.me/LazyPrincessSupport")],
+                                                                     InlineKeyboardMarkup("☕ Buy Me A Coffee ☕", url="https://p.paytm.me/xCTH/vo37hii9")
+                                                                    ]))
         return 
 
     c_time = time.time()
@@ -189,6 +191,3 @@ async def send_doc(client, message):
             await message.reply_text(f"""__What do you want me to do with this file?__\n**File Name** :- {filename}\n**File Size** :- {filesize}\n**Dc ID** :- {dcid}""", reply_to_message_id=message.id, reply_markup=InlineKeyboardMarkup(
                 [[InlineKeyboardButton("📝 Rename", callback_data="rename"),
                   InlineKeyboardButton("✖️ Cancel", callback_data="cancel")]]))
-
-
-
