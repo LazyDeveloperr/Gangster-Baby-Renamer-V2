@@ -119,7 +119,7 @@ async def send_doc(client, message):
                                                                      [InlineKeyboardButton("🔺 Watch Tutorial 🔺", url='https://youtube.com/@LazyDeveloperr')],
                                                                      [InlineKeyboardButton("🦋 Visit Channel  ", url='https://t.me/LazyDeveloper'),
                                                                      InlineKeyboardButton("  Support Group 🦋", url='https://t.me/LazyPrincessSupport')],
-                                                                     [InlineKeyboardMarkup("☕ Buy Me A Coffee ☕", url='https://p.paytm.me/xCTH/vo37hii9')]
+                                                                     [InlineKeyboardButton("☕ Buy Me A Coffee ☕", url='https://p.paytm.me/xCTH/vo37hii9')]
                                                                     ]))
         await message.reply_sticker("🦋")
         return 
