@@ -77,11 +77,15 @@ async def start(client, message):
 	""", reply_to_message_id=message.id,
                                      reply_markup=InlineKeyboardMarkup(
                                          [[InlineKeyboardButton("🔺 Update Channel 🔺", url="https://t.me/LazyDeveloper")],
-                                          [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperr")]]))
+                                          [InlineKeyboardButton("🦋 Subscribe us 🦋", url="https://youtube.com/@LazyDeveloperr")],
+                                          [InlineKeyboardButton("Support Group", url='https://t.me/LazyPrincessSupport'),
+                                          InlineKeyboardButton("Movie Channel", url='https://t.me/real_MoviesAdda1')],
+                                          [InlineKeyboardButton("☕ Buy Me A Coffee ☕", url='https://p.paytm.me/xCTH/vo37hii9')]
+                                          ]))
     
 
 
-@Client.on_message(filters.private &(filters.document | filters.audio | filters.video))
+@Client.on_message((filters.private & (filters.document | filters.audio | filters.video)) | filters.channel & (filters.document | filters.audio | filters.video))
 async def send_doc(client, message):
     update_channel = CHANNEL
     user_id = message.from_user.id
@@ -120,7 +124,7 @@ async def send_doc(client, message):
                                                                      InlineKeyboardButton("  Support Group 🦋", url='https://t.me/LazyPrincessSupport')],
                                                                      [InlineKeyboardButton("☕ Buy Me A Coffee ☕", url='https://p.paytm.me/xCTH/vo37hii9')]
                                                                     ]))
-        await message.reply_text(text="🦋")
+        await message.reply_text(text=f"🦋")
         return 
 
     c_time = time.time()
