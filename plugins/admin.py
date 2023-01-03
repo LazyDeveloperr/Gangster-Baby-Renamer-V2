@@ -43,8 +43,8 @@ async def ceasepremium(bot, message):
 
 
 @Client.on_message((filters.channel | filters.private) & filters.user(ADMIN) & filters.command(["resetpower"]))
-async def ceasepremium(bot, update):
-	id = update.message.reply_to_message.text.split("/ceasepower")
+async def resetpower(bot, update):
+	id = update.message.reply_to_message.text.split("/resetpower")
 	user_id = id[1].replace(" ", "")
 	if user_id:
 	    await update.message.reply_text(text=f"Do you really want to reset this id `{user_id}` to default data limit 1.2GB ?",quote=True,reply_markup=InlineKeyboardMarkup([
