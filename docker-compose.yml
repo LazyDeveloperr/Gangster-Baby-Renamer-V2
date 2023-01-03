@@ -10,3 +10,4 @@ services:
       - DB_URL=${DB_URL}
       - CHANNEL=${CHANNEL}
       - ADMIN=${ADMIN}
+      - LAZY_PIC=${LAZY_PIC}

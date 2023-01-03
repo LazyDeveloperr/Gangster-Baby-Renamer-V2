@@ -91,7 +91,14 @@
 
              "required": true
 
-        }
+        },
+        "LAZY_PIC":{
+
+            "description":"Start up pic of your bot. Get from telegraph_Bot",
+
+            "required": true
+
+       }
 
         
 

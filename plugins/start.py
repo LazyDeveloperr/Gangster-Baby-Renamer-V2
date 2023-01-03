@@ -5,17 +5,15 @@ from pyrogram.errors.exceptions.bad_request_400 import UserNotParticipant
 import time
 from pyrogram import Client, filters
 from pyrogram.types import (
-    InlineKeyboardButton, InlineKeyboardMarkup, ForceReply)
+    InlineKeyboardButton, InlineKeyboardMarkup)
 import humanize
 from helper.progress import humanbytes
 
 from helper.database import insert, find_one, used_limit, usertype, uploadlimit, addpredata, total_rename, total_size
 from pyrogram.file_id import FileId
 from helper.database import daily as daily_
-from helper.date import add_date, check_expi
+from helper.date import check_expi
 import os
-from asyncio import sleep
-from pyrogram.errors import FloodWait
 
 CHANNEL = os.environ.get('CHANNEL', "")
 STRING = os.environ.get("STRING", "")
@@ -25,6 +23,7 @@ log_channel = int(os.environ.get("LOG_CHANNEL", ""))
 token = os.environ.get('TOKEN', '')
 botid = token.split(':')[0]
 FLOOD = 500
+LAZY_PIC = os.environ.get("LAZY_PIC", "")
 
 
 # Part of Day --------------------
@@ -48,7 +47,7 @@ async def start(client, message):
     except:
         txt=f"""Hello {wish} {message.from_user.first_name } \n\n
 	I am file renamer bot, Please sent any telegram**Document Or Video** and enter new filename to rename it"""
-        await message.reply_photo(photo='https://telegra.ph/file/f2c253c5b0b747042cf4c.png',
+        await message.reply_photo(photo=LAZY_PIC,
                                 caption=txt,
                                 reply_markup=InlineKeyboardMarkup(
                                       [[InlineKeyboardButton("🔺 Update Channel 🔺", url="https://t.me/LazyDeveloper")],
@@ -58,7 +57,7 @@ async def start(client, message):
         if old == True:
             try:
                 await client.send_message(id, "Your Friend is Already Using Our Bot")
-                await message.reply_photo(photo='https://telegra.ph/file/f2c253c5b0b747042cf4c.png',
+                await message.reply_photo(photo=LAZY_PIC,
                                          caption=txt,
                                          reply_markup=InlineKeyboardMarkup(
                                              [[InlineKeyboardButton("🔺 Update Channel 🔺", url="https://t.me/LazyDeveloper")],
@@ -121,7 +120,7 @@ async def send_doc(client, message):
                                                                      InlineKeyboardButton("  Support Group 🦋", url='https://t.me/LazyPrincessSupport')],
                                                                      [InlineKeyboardButton("☕ Buy Me A Coffee ☕", url='https://p.paytm.me/xCTH/vo37hii9')]
                                                                     ]))
-        await message.reply_sticker("🦋")
+        await message.reply_text(text="🦋")
         return 
 
     c_time = time.time()
