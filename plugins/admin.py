@@ -1,11 +1,11 @@
+from pyrogram.types import (
+    InlineKeyboardButton, InlineKeyboardMarkup, ForceReply)
 import os
 from pyrogram import Client, filters
 from helper.date import add_date
-from helper.database import uploadlimit , usertype,addpre
+from helper.database import uploadlimit, usertype, addpre
 ADMIN = int(os.environ.get("ADMIN", 1484670284))
 log_channel = int(os.environ.get("LOG_CHANNEL", ""))
-
-from pyrogram.types import (InlineKeyboardButton, InlineKeyboardMarkup,ForceReply)
 
 
 @Client.on_message(filters.private & filters.user(ADMIN) & filters.command(["warn"]))
@@ -17,32 +17,41 @@ async def warn(c, m):
                 await m.reply_text("User Notfied Sucessfully")
                 await c.send_message(chat_id=int(user_id), text=reason)
             except:
-                 await m.reply_text("User Not Notfied Sucessfully 😔") 
+                 await m.reply_text("User Not Notfied Sucessfully 😔")
+
 
 @Client.on_message(filters.private & filters.user(ADMIN) & filters.command(["addpremium"]))
 async def buypremium(bot, message):
-	await message.reply_text("🦋 Select Plan to upgrade...",quote=True,reply_markup=InlineKeyboardMarkup([
+	await message.reply_text("🦋 Select Plan to upgrade...", quote=True, reply_markup=InlineKeyboardMarkup([
 		           [
-				   InlineKeyboardButton("🪙 Silver",callback_data = "vip1")
-				   ],[
-					InlineKeyboardButton("💫Gold",callback_data = "vip2")
-				   ],[
-					InlineKeyboardButton("💎 Diamond",callback_data = "vip3")
+				   InlineKeyboardButton("🪙 Silver", callback_data="vip1")
+				   ], [
+					InlineKeyboardButton("💫Gold", callback_data="vip2")
+				   ], [
+					InlineKeyboardButton("💎 Diamond", callback_data="vip3")
 					]]))
+
 
 @Client.on_message((filters.channel | filters.private) & filters.user(ADMIN) & filters.command(["ceasepower"]))
 async def ceasepremium(bot, message):
-	await message.reply_text(" POWER CEASE MODE",quote=True,reply_markup=InlineKeyboardMarkup([
-		           [InlineKeyboardButton("•× Limit 500MB ×•",callback_data = "cp1"),
-				    InlineKeyboardButton("•× Limit 100MB ×•",callback_data = "cp2")
-				   ],[
-				    InlineKeyboardButton("•••× CEASE ALL POWER ×•••",callback_data = "cp3")
+	await message.reply_text(" POWER CEASE MODE", quote=True, reply_markup=InlineKeyboardMarkup([
+		           [InlineKeyboardButton("•× Limit 500MB ×•", callback_data="cp1"),
+				    InlineKeyboardButton("•× Limit 100MB ×•", callback_data="cp2")
+				   ], [
+				    InlineKeyboardButton("•••× CEASE ALL POWER ×•••", callback_data="cp3")
 				    ]]))
 
+
 @Client.on_message((filters.channel | filters.private) & filters.user(ADMIN) & filters.command(["resetpower"]))
-async def ceasepremium(bot, message):
-	await message.reply_text(" POWER CEASE MODE",quote=True,reply_markup=InlineKeyboardMarkup([
-		           [InlineKeyboardButton("Set as Default",callback_data = "dft")]]))
+async def ceasepremium(bot, update):
+	id = update.message.reply_to_message.text.split("/ceasepower")
+	user_id = id[1].replace(" ", "")
+	if user_id:
+	    await update.message.reply_text(text=f"Do you really want to reset this id `{user_id}` to default data limit 1.2GB ?",quote=True,reply_markup=InlineKeyboardMarkup([
+		           [InlineKeyboardButton("• YES ! Set as Default •",callback_data = "dft")],
+				   [InlineKeyboardButton("❌ Cancel ❌",callback_data = "cancel")]
+				   ]))
+
         			
 @Client.on_callback_query(filters.regex('vip1'))
 async def vip1(bot,update,message):
