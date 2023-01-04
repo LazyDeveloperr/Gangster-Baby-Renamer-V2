@@ -25,7 +25,7 @@
 
 * `LAZY_PIC` - start message photo
 
-* `STRING` - If you want to rename 4GB+ files. [Note :- Remove string if bot dont works.]
+* `STRING` - If you want to rename 4GB+ files. [Note :- Remove string if bot don't works]
 
 
   ### 📶 DEPLOYEMENT SUPPORT
