@@ -55,6 +55,7 @@
 
 
 #### 🥰 Features
+ - Rename 4gb plus files `[if string is added]`
  - Renames very fast .
  - Permanent Thumbnail support.
  - Force join for the user for use.
@@ -65,24 +66,38 @@
  - Supports ulimited renaming at a time.
  - Deploy to Koyeb + Heroku + Railway.
  - Developer Service 24x7. 🔥
+ - Cease power
+ - Add Premium
 
 ### 🚦 User Commands
 `/start` - Check if the bot is running.
+ 
 `/viewthumb` - To view current thumbnail.
+ 
 `/delthumb` - To delete current thumbnail.
+ 
 `/set_caption` - set a custom caption.
+ 
 `/see_caption` - see your custom caption.
+ 
 `/del_caption` - delete custom caption.
+ 
 `/myplan` - To view users current plan.
+ 
 `/about` - To view bot current status.
+ 
 `/upgrade` - To view all plans with price list of SILVER - GOLD - DIAMOND.
 
 ### Admin Commands
 
 `/lazyusers` - To view list of users, using BOT [FOR ADMINS USE ONLY]
+ 
 `/broadcast` - Message Broadcast command [FOR ADMINS USE ONLY].
+ 
 `/ceasepower` - To cease(downgrade) renaming capacity [FOR ADMINS USE ONLY].
+ 
 `/resetpower` - To reset renaming capacity (to default 1.2 GB)  [FOR ADMINS USE ONLY].
+ 
 `/addpremium` - To upgrade user plan to SILVER - GOLD - DIAMOND  [FOR ADMINS USE ONLY].
 
 
@@ -95,7 +110,6 @@
 
 #### 🧡 Respecting... 🧡
 - [🔥 LazyDeveloperr](https://github.com/LazyDeveloperr) 
-- [🔥 Pyrogram](https://github.com/pyrogram/pyrogram)
 
 ### 🤩 INSPIRATION
 <a href="#">
