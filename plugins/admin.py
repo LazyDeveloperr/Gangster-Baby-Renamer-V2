@@ -51,7 +51,7 @@ async def resetpower(bot, message):
 
         			
 @Client.on_callback_query(filters.regex('vip1'))
-async def vip1(bot,update,message):
+async def vip1(bot,update):
 	id = update.message.reply_to_message.text.split("/addpremium")
 	user_id = id[1].replace(" ", "")
 	inlimit  = 10737418240
@@ -60,7 +60,7 @@ async def vip1(bot,update,message):
 	addpre(int(user_id))
 	await update.message.edit("Added successfully To Premium Upload limit 10 GB")
 	await bot.send_message(user_id,"Hey you are Upgraded To silver. check your plan here /myplan")
-	await bot.send_message(log_channel,f"⚡️ Plan Upgraded successfully 💥\n\n Name : {message.from_user.first_name}Hey you are Upgraded To silver. check your plan here /myplan")
+	await bot.send_message(log_channel,f"⚡️ Plan Upgraded successfully 💥\n\nHey you are Upgraded To silver. check your plan here /myplan")
 
 @Client.on_callback_query(filters.regex('vip2'))
 async def vip2(bot,update):
