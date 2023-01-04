@@ -25,6 +25,10 @@
 
 * `LAZY_PIC` - start message photo
 
+* `LOG_CHANNEL` - Id of log channel 
+
+* `PORT` - Use 8080 IN port
+
 
   ### 📶 DEPLOYEMENT SUPPORT
 
