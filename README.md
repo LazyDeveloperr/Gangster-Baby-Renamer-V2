@@ -105,7 +105,7 @@
 
 #### 🧡 Respecting... 🧡
 - [🔥 LazyDeveloperr](https://github.com/LazyDeveloperr) 
-- [🔥 Pyrogram](https://github.com/pyrogram/pyrogram)
+- [🔥 lntechnical2](https://github.com/lntechnical2)
 
 ### 🤩 INSPIRATION
 <a href="#">
