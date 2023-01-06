@@ -27,6 +27,7 @@
 
 * `STRING` - If you want to rename 4GB+ files. `[Note :- Remove string if bot don't works]`
 
+* `BOT_USERNAME` - Add your bot username `without @`
 
   ### 📶 DEPLOYEMENT SUPPORT
 
