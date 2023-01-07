@@ -157,8 +157,7 @@ async def send_doc(client, message):
         used_ = find_one(message.from_user.id)
         used = used_["used_limit"]
         limit = used_["uploadlimit"]
-        expi = daily - \
-            int(time.mktime(time.strptime(str(date_.today()), '%Y-%m-%d')))
+        expi = daily - int(time.mktime(time.strptime(str(date_.today()), '%Y-%m-%d')))
         if expi != 0:
             today = date_.today()
             pattern = '%Y-%m-%d'
