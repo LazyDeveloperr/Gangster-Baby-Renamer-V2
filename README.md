@@ -1,7 +1,7 @@
-<img src="https://telegra.ph/file/9936c273582628afb098c.png" alt="logo" target="/blank">
+<img src="https://graph.org/file/a724ca55db184b399fc1a.jpg" alt="logo" target="/blank">
 
 <h1 align="center">
- <b><a href="https://telegram.me/LazyDeveloper" target="/blank"> Gangster Baby ( PREMIUM Renamer ) </a></>
+ <b><a href="https://telegram.me/KARSHFEELINGS" target="/blank"> Renamer God </a></>
 </h1>
 
 <p align="center">🤍 Thanks for Being Here 🤍</p>
