@@ -6,8 +6,8 @@ from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 
 async def fix_thumb(thumb):
-    width = 0
-    height = 0
+    width = 738
+    height = 414
     try:
         if thumb != None:
             metadata = extractMetadata(createParser(thumb))
@@ -17,7 +17,7 @@ async def fix_thumb(thumb):
                 height = metadata.get("height")
                 Image.open(thumb).convert("RGB").save(thumb)
                 img = Image.open(thumb)
-                img.resize((320, height))
+                img.resize((414, height))
                 img.save(thumb, "JPEG")
     except Exception as e:
         print(e)
