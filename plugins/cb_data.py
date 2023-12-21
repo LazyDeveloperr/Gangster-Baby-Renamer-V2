@@ -96,7 +96,7 @@ async def doc(bot, update):
         ph_path = await bot.download_media(thumb)
         Image.open(ph_path).convert("RGB").save(ph_path)
         img = Image.open(ph_path)
-        img.resize((320, 320))
+        img.resize((501, 501))
         img.save(ph_path, "JPEG")
         c_time = time.time()
 
@@ -193,7 +193,7 @@ async def vid(bot, update):
         ph_path = await bot.download_media(thumb)
         Image.open(ph_path).convert("RGB").save(ph_path)
         img = Image.open(ph_path)
-        img.resize((320, 320))
+        img.resize((501, 501))
         img.save(ph_path, "JPEG")
         c_time = time.time()
 
@@ -289,7 +289,7 @@ async def aud(bot, update):
         ph_path = await bot.download_media(thumb)
         Image.open(ph_path).convert("RGB").save(ph_path)
         img = Image.open(ph_path)
-        img.resize((320, 320))
+        img.resize((501, 501))
         img.save(ph_path, "JPEG")
         await ms.edit("```Trying To Upload```")
         c_time = time.time()
